@@ -1,9 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f3ee;
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-strong: #ffffff;
+  --foreground: #24211d;
+  --muted: #756f66;
+  --border: rgba(36, 33, 29, 0.12);
+  --header: rgba(245, 243, 238, 0.78);
+  --accent: #f25f3a;
+  --accent-2: #7c3aed;
+  --shadow: 0 20px 60px rgba(54, 43, 31, 0.12);
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -12,15 +22,103 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #11100f;
+  --surface: rgba(31, 29, 27, 0.82);
+  --surface-strong: #25221f;
+  --foreground: #faf7f2;
+  --muted: #aaa39a;
+  --border: rgba(255, 255, 255, 0.11);
+  --header: rgba(17, 16, 15, 0.78);
+  --accent: #fb7a50;
+  --accent-2: #a78bfa;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button, a { transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, opacity 180ms ease, transform 180ms ease, box-shadow 180ms ease; }
+button:not(:disabled) { cursor: pointer; }
+::selection { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+
+.page-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 8% -5%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 30rem),
+    radial-gradient(circle at 95% 12%, color-mix(in srgb, var(--accent-2) 10%, transparent), transparent 32rem),
+    var(--background);
+}
+
+.premium-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: 0 1px 0 rgba(255,255,255,.08), 0 12px 38px rgba(32,24,18,.06);
+  backdrop-filter: blur(18px);
+}
+
+.button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border-radius: .9rem;
+  background: linear-gradient(135deg, #ff7849, #ed4665 55%, #8b5cf6);
+  padding: .7rem 1.05rem;
+  color: white;
+  font-size: .875rem;
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(237, 70, 101, .22);
+}
+.button-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(237, 70, 101, .3); }
+
+.button-secondary, .back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border: 1px solid var(--border);
+  border-radius: .9rem;
+  background: var(--surface);
+  padding: .65rem 1rem;
+  font-size: .875rem;
+  font-weight: 700;
+  box-shadow: 0 5px 18px rgba(20,16,12,.04);
+}
+.button-secondary:hover, .back-button:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+
+.icon-button {
+  display: grid;
+  height: 2.75rem;
+  width: 2.75rem;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: 0 4px 16px rgba(20,16,12,.04);
+}
+.icon-button:hover { transform: translateY(-2px) rotate(-3deg); }
+
+.animate-enter { animation: enter .55s cubic-bezier(.22,1,.36,1) both; }
+.animate-rise { animation: rise .6s cubic-bezier(.22,1,.36,1) both; }
+.stagger > * { animation: rise .55s cubic-bezier(.22,1,.36,1) both; }
+.stagger > *:nth-child(2) { animation-delay: 70ms; }
+.stagger > *:nth-child(3) { animation-delay: 140ms; }
+.stagger > *:nth-child(4) { animation-delay: 210ms; }
+.stagger > *:nth-child(5) { animation-delay: 280ms; }
+.stagger > *:nth-child(6) { animation-delay: 350ms; }
+
+@keyframes enter { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes rise { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
