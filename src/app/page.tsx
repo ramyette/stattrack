@@ -46,7 +46,9 @@ export default function Home() {
             <Link href="/login" className="rounded-2xl bg-orange-500 px-6 py-3.5 font-black text-white shadow-xl shadow-orange-500/20 transition hover:-translate-y-0.5 hover:bg-orange-600">Get started with Google</Link>
             <Link href="/legal#privacy" className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-6 py-3.5 font-bold transition hover:-translate-y-0.5 hover:shadow-lg">How your data is handled</Link>
           </div>
-          <p className="mt-4 text-sm text-[var(--muted)]">Free during public beta. No payment information required.</p>
+          <p className="mt-4 max-w-2xl text-sm leading-6 text-[var(--muted)]">
+            Free during public beta. No payment information required. Google Sign-In is used to authenticate your account and provide your default email address, display name, and profile picture. StatTrack does not request access to your YouTube account or videos.
+          </p>
         </div>
 
         <div className="premium-card relative rounded-[2rem] p-6 shadow-2xl sm:p-8">
